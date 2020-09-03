@@ -30,11 +30,13 @@ export default function App() {
   return (
     <>
       <Header />
-      <Nav />
+      <div className="hidden lg:block">
+        <Nav />
+      </div>
 
       {/* content === sidebar + main content */}
-      <div className="flex px-10">
-        <div className="w-1/5 py-4 pr-8">
+      <div className="lg:flex px-10">
+        <div className="lg:w-1/5 py-4 pr-8">
           {/* sidebar header */}
           <div className="pb-3 mb-3 border-b border-gray-300 space-y-4">
             <button className="block py-2 px-4 rounded bg-gradient-to-b from-red-600 to-red-700 hover:from-red-700 hover:to-red-600 text-red-100 uppercase text-sm tracking-wider">
@@ -50,7 +52,7 @@ export default function App() {
           {/* feed list */}
           <FeedList feeds={feeds} setCurrentFeedId={setCurrentFeedId} />
         </div>
-        <div className="w-4/5 py-4">
+        <div className="lg:w-4/5 py-4">
           <h2 className="text-lg pb-2 font-bold text-gray-900 border-b border-gray-200">
             Articles
           </h2>
