@@ -5,6 +5,8 @@ import ArticleList from "./components/ArticleList";
 import bg from "./bg.svg";
 import "./App.css";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export default function App() {
   const [currentFeedId, setCurrentFeedId] = useState(null);
   const [feeds, setFeeds] = useState([]);
@@ -12,14 +14,14 @@ export default function App() {
 
   // get feeds
   useEffect(() => {
-    fetch("https://rss-reader-ptfd6.ondigitalocean.app/feeds/")
+    fetch(`${apiUrl}/feeds/`)
       .then((res) => res.json())
       .then(setFeeds);
   }, []);
 
   // get articles
   useEffect(() => {
-    let url = "https://rss-reader-ptfd6.ondigitalocean.app/articles/";
+    let url = `${apiUrl}/articles/`;
     if (currentFeedId) url += `?feed=${currentFeedId}`;
 
     fetch(url)
@@ -27,6 +29,15 @@ export default function App() {
       .then(setArticles);
   }, [currentFeedId]);
 
+  // show an error if no API_URL exists
+  if (!apiUrl)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-blue-100 text-blue-700 font-bold text-3xl">
+        Please add your REACT_APP_API_URL to your environment variables.
+      </div>
+    );
+
+  // our main template
   return (
     <>
       <div
