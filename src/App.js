@@ -1,36 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "./components/Header";
 import FeedList from "./components/FeedList";
 import ArticleList from "./components/ArticleList";
 import Subscribe from "./components/Subscribe";
-import bg from "./bg.svg";
+
 import "./App.css";
+import { useAuth } from "./contexts/AuthContext";
+import Login from "./components/Login";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function App() {
-  const [currentFeedId, setCurrentFeedId] = useState(null);
-  const [feeds, setFeeds] = useState([]);
-  const [articles, setArticles] = useState([]);
-
-  // get feeds
-  useEffect(() => {
-    fetch(`${apiUrl}/feeds/`)
-      .then((res) => res.json())
-      .then(setFeeds);
-  }, []);
-
-  // get articles
-  useEffect(() => {
-    let url = `${apiUrl}/articles/`;
-    if (currentFeedId) url += `?feed=${currentFeedId}`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then(setArticles);
-  }, [currentFeedId]);
-
-  function addFeed() {}
+  const { token } = useAuth();
 
   // show an error if no API_URL exists
   if (!apiUrl)
@@ -40,18 +21,9 @@ export default function App() {
       </div>
     );
 
-  // our main template
   return (
     <>
-      <div
-        className="hidden lg:block"
-        style={{
-          backgroundImage: `url('${bg}')`,
-          backgroundSize: "cover",
-        }}
-      >
-        <Header />
-      </div>
+      <Header />
 
       {/* content === sidebar + main content */}
       <div className="bg-blue-100 bg-opacity-25 min-h-screen lg:flex px-10 py-6">
@@ -59,7 +31,11 @@ export default function App() {
         <div className="lg:w-1/5 py-4 pr-8">
           {/* sidebar header */}
           <div className="pb-6 mb-6 border-b border-gray-300 space-y-6">
-            <Subscribe addFeed={addFeed} />
+            {/* {!token && <Login />}
+            {token && <Subscribe />} */}
+
+            <Login />
+            <Subscribe />
 
             <button className="block w-full text-left text-gray-800 hover:text-gray-900 font-bold">
               Home
@@ -68,14 +44,14 @@ export default function App() {
 
           {/* sidebar content */}
           {/* feed list */}
-          <FeedList feeds={feeds} setCurrentFeedId={setCurrentFeedId} />
+          <FeedList />
         </div>
         <div className="lg:w-4/5 py-4">
           <h2 className="text-lg pb-2 font-bold text-gray-900 border-b border-gray-200">
             Articles
           </h2>
           {/* article list */}
-          <ArticleList articles={articles} />
+          <ArticleList />
         </div>
       </div>
     </>

@@ -1,6 +1,9 @@
 import React from "react";
+import { useFeeds } from "../contexts/FeedContext";
 
-export default function FeedList({ feeds, setCurrentFeedId }) {
+export default function FeedList() {
+  const { feeds, setCurrentFeedId } = useFeeds();
+
   return (
     <>
       {feeds.map((feed) => (

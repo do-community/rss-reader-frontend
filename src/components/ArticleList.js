@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import ReactTimeAgo from "react-time-ago";
+import { useFeeds } from "../contexts/FeedContext";
 
-export default function ArticleList({ articles }) {
+export default function ArticleList() {
+  const { articles } = useFeeds();
+
   return (
     <>
       {articles.map((article) => (
