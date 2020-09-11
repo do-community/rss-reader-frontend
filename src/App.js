@@ -10,7 +10,7 @@ import Login from "./components/Login";
 
 const apiUrl =
   process.env.REACT_APP_API_URL ||
-  "https://google-reader-clone-lay2v.ondigitalocean.app";
+  "https://google-reader-clone-lay2v.ondigitalocean.app/api";
 
 export default function App() {
   const { token } = useAuth();
@@ -33,12 +33,8 @@ export default function App() {
         <div className="lg:w-1/5 py-4 pr-8">
           {/* sidebar header */}
           <div className="pb-6 mb-6 border-b border-gray-300 space-y-6">
-            {token}
-            {/* {!token && <Login />}
-            {token && <Subscribe />} */}
-
-            <Login />
-            <Subscribe />
+            {!token && <Login />}
+            {token && <Subscribe />}
 
             <button className="block w-full text-left text-gray-800 hover:text-gray-900 font-bold">
               Home

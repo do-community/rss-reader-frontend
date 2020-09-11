@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactTimeAgo from "react-time-ago";
+import Timestamp from "react-timestamp";
 import { useFeeds } from "../contexts/FeedContext";
 
 export default function ArticleList() {
@@ -7,8 +7,8 @@ export default function ArticleList() {
 
   return (
     <>
-      {articles.map((article) => (
-        <Article key={article.id} article={article} />
+      {articles.map((article, index) => (
+        <Article key={index} article={article} />
       ))}
     </>
   );
@@ -23,16 +23,16 @@ function Article({ article }) {
       <button
         onClick={() => setIsOpen((isOpen) => !isOpen)}
         key={article.id}
-        className={`w-full lg:flex lg:items-center text-left p-3 text-sm ${
+        className={`w-full lg:flex lg:items-center text-left p-4 outline-none focus:outline-none ${
           isOpen ? "bg-gray-200" : ""
         }`}
       >
-        <span className="hidden lg:block text-gray-500 mr-6">
+        <span className="hidden lg:block w-1/6 text-gray-500 mr-6">
           {article.feed_name}
         </span>
-        <span className="block font-bold">{article.title}</span>
+        <span className="block font-bold flex-grow">{article.title}</span>
 
-        <ReactTimeAgo date={article.date} className="text-gray-500 ml-auto" />
+        <Timestamp date={article.date} className="text-gray-500 ml-auto" />
       </button>
 
       {isOpen && (

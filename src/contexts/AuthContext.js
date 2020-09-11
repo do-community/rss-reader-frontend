@@ -2,7 +2,7 @@ import React, { useContext, createContext, useState, useEffect } from "react";
 
 const apiUrl =
   process.env.REACT_APP_API_URL ||
-  "https://google-reader-clone-lay2v.ondigitalocean.app";
+  "https://google-reader-clone-lay2v.ondigitalocean.app/api";
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
@@ -12,13 +12,20 @@ export function AuthProvider({ children }) {
   function login(username, password) {
     fetch(`${apiUrl}/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify({
         username,
         password,
       }),
     })
       .then((res) => res.json())
-      .then((data) => localStorage.setItem("sammy_token", data.token));
+      .then((data) => {
+        setToken(data.token);
+        localStorage.setItem("sammy_token", data.token);
+      });
   }
 
   function logout() {

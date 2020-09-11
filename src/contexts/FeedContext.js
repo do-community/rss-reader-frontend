@@ -8,7 +8,7 @@ import React, {
 
 const apiUrl =
   process.env.REACT_APP_API_URL ||
-  "https://google-reader-clone-lay2v.ondigitalocean.app";
+  "https://google-reader-clone-lay2v.ondigitalocean.app/api";
 
 const FeedContext = createContext();
 export const useFeeds = () => useContext(FeedContext);
@@ -18,7 +18,19 @@ export function FeedProvider({ children }) {
   const [feeds, setFeeds] = useState([]);
   const [articles, setArticles] = useState([]);
 
-  const getArticles = useCallback(() => {
+  const getFeeds = useCallback(() => {
+    fetch(`${apiUrl}/feeds/`)
+      .then((res) => res.json())
+      .then(setFeeds);
+  }, []);
+
+  // get feeds
+  useEffect(() => {
+    getFeeds();
+  }, [getFeeds]);
+
+  // get articles
+  useEffect(() => {
     let url = `${apiUrl}/articles/`;
     if (currentFeedId) url += `?feed=${currentFeedId}`;
     fetch(url)
@@ -31,25 +43,21 @@ export function FeedProvider({ children }) {
     const parsedUrl = new URL(url);
     const { hostname } = parsedUrl;
 
-    fetch(`${apiUrl}/feeds`, {
+    const token = localStorage.getItem("sammy_token");
+    if (!token) return;
+
+    fetch(`${apiUrl}/feeds/`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${token}`,
+      },
       body: JSON.stringify({ name: hostname, url }),
     })
       .then((res) => res.json())
-      .then(setFeeds);
+      .then(getFeeds);
   }
-
-  // get feeds
-  useEffect(() => {
-    fetch(`${apiUrl}/feeds/`)
-      .then((res) => res.json())
-      .then(setFeeds);
-  }, []);
-
-  // get articles
-  useEffect(() => {
-    getArticles();
-  }, [getArticles, currentFeedId]);
 
   return (
     <FeedContext.Provider
