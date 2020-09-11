@@ -6,7 +6,9 @@ import React, {
   useCallback,
 } from "react";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl =
+  process.env.REACT_APP_API_URL ||
+  "https://google-reader-clone-lay2v.ondigitalocean.app";
 
 const FeedContext = createContext();
 export const useFeeds = () => useContext(FeedContext);

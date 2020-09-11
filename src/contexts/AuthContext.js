@@ -1,6 +1,8 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl =
+  process.env.REACT_APP_API_URL ||
+  "https://google-reader-clone-lay2v.ondigitalocean.app";
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
