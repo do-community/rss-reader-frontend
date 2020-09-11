@@ -14,7 +14,7 @@ function isValidUrl(string) {
 
 export default function Subscribe() {
   const { addFeed } = useFeeds();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState("");
   const [isValid, setIsValid] = useState(true);
   const modalRef = useRef(null);
@@ -73,7 +73,7 @@ export default function Subscribe() {
 
       {/* button */}
       <button
-        className="block py-2 px-4 rounded bg-gradient-to-b from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-600 text-blue-100 uppercase text-sm tracking-wider"
+        className="block w-full py-2 px-4 rounded bg-gradient-to-b from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-600 text-blue-100 uppercase text-sm tracking-wider"
         onClick={() => setIsOpen(true)}
       >
         Subscribe

@@ -33,6 +33,7 @@ export default function App() {
         <div className="lg:w-1/5 py-4 pr-8">
           {/* sidebar header */}
           <div className="pb-6 mb-6 border-b border-gray-300 space-y-6">
+            {token}
             {/* {!token && <Login />}
             {token && <Subscribe />} */}
 
