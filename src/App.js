@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import FeedList from "./components/FeedList";
 import ArticleList from "./components/ArticleList";
+import Subscribe from "./components/Subscribe";
 import bg from "./bg.svg";
 import "./App.css";
 
@@ -28,6 +29,8 @@ export default function App() {
       .then((res) => res.json())
       .then(setArticles);
   }, [currentFeedId]);
+
+  function addFeed() {}
 
   // show an error if no API_URL exists
   if (!apiUrl)
@@ -56,9 +59,7 @@ export default function App() {
         <div className="lg:w-1/5 py-4 pr-8">
           {/* sidebar header */}
           <div className="pb-6 mb-6 border-b border-gray-300 space-y-6">
-            <button className="block py-2 px-4 rounded bg-gradient-to-b from-red-600 to-red-700 hover:from-red-700 hover:to-red-600 text-red-100 uppercase text-sm tracking-wider">
-              Subscribe
-            </button>
+            <Subscribe addFeed={addFeed} />
 
             <button className="block w-full text-left text-gray-800 hover:text-gray-900 font-bold">
               Home
