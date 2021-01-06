@@ -53,6 +53,26 @@ export default function App() {
           <ArticleList />
         </div>
       </div>
+
+      <Footer />
     </>
+  );
+}
+
+function Footer() {
+  return (
+    <a
+      style={{
+        backgroundImage: `url('https://www.digitalocean.com/static/bg-home-hero-3-bb4b33b77274db09b969f629ad81c4d5.svg')`,
+      }}
+      className="p-10 text-white text-xl font-bold flex justify-center items-center"
+      href="https://do.co/chris"
+    >
+      Hosted on{" "}
+      <img
+        src="https://i.imgur.com/h482SSG.png"
+        className="h-6 md:h-10 ml-4 transform"
+      />
+    </a>
   );
 }
