@@ -10,7 +10,6 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
 
   function login(username, password) {
-    console.log(username, password, `${apiUrl}`);
     fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
